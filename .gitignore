@@ -1,0 +1,22 @@
+# Игнорируем виртуальное окружение
+venv/
+
+# Файл настроек среды
+.env
+
+# SQLite база данных
+# data/*.sqlite3
+
+# Логи
+*.log
+
+# node_modules для фронтенда
+frontend/node_modules/
+backend/node_modules/
+
+# Сборка Vite
+frontend/dist/
+
+# Файлы IDE
+.idea/
+.vscode/
