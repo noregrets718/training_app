@@ -99,21 +99,21 @@ class SetReadModel(BaseModel):
 
 
 # --- Exercise внутри WorkoutExercise ---
-class ExerciseShortModel(BaseModel):
-    id: int
-    name: str
+# class ExerciseShortModel(BaseModel):
+#     id: int
+#     name: str
 
-    model_config = ConfigDict(from_attributes=True)
+#     model_config = ConfigDict(from_attributes=True)
 
 
-# --- WorkoutExercise ---
-class WorkoutExerciseReadModel(BaseModel):
-    id: int
-    number_of_sets: int
-    exercise: ExerciseShortModel  # ← связь на Exercise
-    sets: List[SetReadModel]
+# # --- WorkoutExercise ---
+# class WorkoutExerciseReadModel(BaseModel):
+#     id: int
+#     number_of_sets: int
+#     exercise: ExerciseShortModel  # ← связь на Exercise
+#     sets: List[SetReadModel]
 
-    model_config = ConfigDict(from_attributes=True)
+#     model_config = ConfigDict(from_attributes=True)
 
 
 # --- Workout ---
