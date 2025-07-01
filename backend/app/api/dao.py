@@ -76,12 +76,12 @@ class WorkoutDAO(BaseDAO):
 
             for exercise in workout_data.exercises:
                 # 2. Добавляем WorkoutExercise через DAO
-                workout_exercise: WorkoutExerciseReadModel = WorkoutExerciseReadModel.model_validate(
-                    await WorkoutExerciseDAO.add(session, WorkoutExerciseCreateModel(
-                    workout_id=workout.id,
-                    exercise_id=exercise.exercise_id,
-                    number_of_sets=len(exercise.sets)
-                )))
+                workout_exercise = await WorkoutExerciseDAO.add(session, WorkoutExerciseCreateModel(
+                workout_id=workout.id,
+                exercise_id=exercise.exercise_id,
+                number_of_sets=len(exercise.sets)
+                
+            ))
 
                 # 3. Добавляем Sets через DAO
                 for i, s in enumerate(exercise.sets):
