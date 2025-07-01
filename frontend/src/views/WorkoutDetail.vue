@@ -43,7 +43,8 @@ onMounted(async () => {
 }
   )
   workout.value = res.data
-  console.log(workout.value)
+  console.log(JSON.stringify(workout.value, null, 2))
+  // console.log(workout.value)
 })
 
 const formattedDate = computed(() =>
