@@ -1,10 +1,11 @@
 from email import message
 from httpx import AsyncClient
-from app.api.dao import UserDAO, ExerciseDAO
-from app.api.schemas import TelegramIDModel, UserModel, ExerciseNameModel
+from app.users.dao import UserDAO
+from app.exercises.dao import ExerciseDAO
+from app.users.schemas import TelegramIDModel, UserModel
+from app.exercises.schemas import ExerciseNameModel
 from app.tg_bot.methods import get_greeting_text, bot_send_message
 from app.tg_bot.kbs import main_kb
-from app.config import settings
 from sqlalchemy.exc import SQLAlchemyError
 
 

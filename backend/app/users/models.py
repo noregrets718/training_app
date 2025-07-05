@@ -1,7 +1,10 @@
-from typing import List
+from typing import List, TYPE_CHECKING
 from sqlalchemy import Integer, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
+
+if TYPE_CHECKING:
+    from app.workouts.models import Workout
 
 
 class User(Base):
