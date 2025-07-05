@@ -62,6 +62,7 @@ onMounted(async () => {
   }
 })
     console.log(res)
+    console.log(BASE_SITE)
     workouts.value = res.data
     console.log(workouts.value)
     
