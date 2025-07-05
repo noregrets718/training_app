@@ -1,15 +1,10 @@
 from pydantic import BaseModel, ConfigDict
 
+class ExerciseCreate(BaseModel):
+    name: str
 
-
-class ExerciseShortModel(BaseModel):
+class ExerciseRead(BaseModel):
     id: int
     name: str
 
     model_config = ConfigDict(from_attributes=True)
-
-
-
-
-class ExerciseNameModel(BaseModel):
-    name: str

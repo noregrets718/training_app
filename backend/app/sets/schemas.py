@@ -1,14 +1,14 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class SetCreateModel(BaseModel):
+class SetCreate(BaseModel):
     workout_exercise_id: int
     weight: float
     repetitions: int
     order: int
 
 
-class SetReadModel(BaseModel):
+class SetRead(BaseModel):
     id: int
     weight: float
     repetitions: int

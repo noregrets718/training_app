@@ -80,8 +80,7 @@ const next = () => {
 // Завершение тренировки
 const submit = async () => {
   try {
-    await axios.post(`${BASE_SITE}/workouts`, {
-      telegram_id: store.telegramId,
+    await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}`, {
       workout_date: store.date,
       exercises: store.exercises
     }, {

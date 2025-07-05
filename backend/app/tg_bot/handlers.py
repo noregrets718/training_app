@@ -3,11 +3,10 @@ from httpx import AsyncClient
 from app.users.dao import UserDAO
 from app.exercises.dao import ExerciseDAO
 from app.users.schemas import TelegramIDModel, UserModel
-from app.exercises.schemas import ExerciseNameModel
+from app.exercises.schemas import ExerciseCreate
 from app.tg_bot.methods import get_greeting_text, bot_send_message
 from app.tg_bot.kbs import main_kb
 from sqlalchemy.exc import SQLAlchemyError
-
 
 
 
@@ -35,14 +34,14 @@ async def cmd_start(client: AsyncClient, session, user_info):
 async def cmd_addexercise(client, session, telegram_id: int, name: str):
     exercise_in_db = await ExerciseDAO.find_one_or_none(
         session=session,
-        filters=ExerciseNameModel(name=name)
+        filters=ExerciseCreate(name=name)
     )
     if exercise_in_db:
         await bot_send_message(client, telegram_id, f"❗ Упражнение «{name}» уже существует.", None)
         return
 
     try:
-        await ExerciseDAO.add(session=session, values=ExerciseNameModel(name=name))
+        await ExerciseDAO.add(session=session, values=ExerciseCreate(name=name))
         await bot_send_message(client, telegram_id, f"✅ Упражнение «{name}» добавлено.", None)
     except SQLAlchemyError:
         await session.rollback()

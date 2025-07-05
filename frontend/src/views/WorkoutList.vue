@@ -56,7 +56,7 @@ console.log("Telegram ID:", telegramId);
 onMounted(async () => {
   try {
     
-   const res = await axios.get(`${BASE_SITE}/users/${telegramId}/workouts`, {
+   const res = await axios.get(`${BASE_SITE}/workouts/users/${telegramId}`, {
   headers: {
     'ngrok-skip-browser-warning': 'true'
   }

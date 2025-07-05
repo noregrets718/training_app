@@ -1,55 +1,88 @@
+# from datetime import date
+# from typing import List
+# from pydantic import BaseModel, ConfigDict
+# from app.workout_exercises.schemas import WorkoutExerciseReadModel
+
+
+
+
+# class WorkoutTempReadModel(BaseModel):
+#     id: int
+#     user_id: int
+#     day: date  # как в SQLAlchemy-модели
+
+#     model_config = ConfigDict(from_attributes=True)
+
+
+
+# class SetInput(BaseModel):
+#     weight: float
+#     repetitions: int
+
+
+
+# class ExerciseInput(BaseModel):
+#     exercise_id: int
+#     sets: List[SetInput]
+
+
+
+# class WorkoutCreateUserModel(BaseModel):
+#     user_id: int
+#     workout_date: date
+#     exercises: List[ExerciseInput]
+
+
+
+# class WorkoutCreateModel(BaseModel):
+#     user_id: int
+#     day: date
+
+
+
+# class WorkoutFromClient(BaseModel):
+#     telegram_id: int
+#     workout_date: date  # или datetime
+#     exercises: List[ExerciseInput]
+
+
+# class WorkoutReadModel(BaseModel):
+#     id: int
+#     day: date
+#     exercises: List[WorkoutExerciseReadModel]
+
+#     model_config = ConfigDict(from_attributes=True)
+
+
 from datetime import date
 from typing import List
 from pydantic import BaseModel, ConfigDict
-from app.workout_exercises.schemas import WorkoutExerciseReadModel
+from app.workout_exercises.schemas import WorkoutExerciseRead
 
-
-
-class WorkoutTempReadModel(BaseModel):
-    id: int
-    user_id: int
-    day: date  # как в SQLAlchemy-модели
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-
-class SetEntry(BaseModel):
-    weight: float  # или int, если точно только целые
+class SetInput(BaseModel):
+    weight: float
     repetitions: int
 
-
-
-class ExerciseEntry(BaseModel):
+class ExerciseInput(BaseModel):
     exercise_id: int
-    sets: List[SetEntry]
+    sets: List[SetInput]
 
+class WorkoutCreateRequest(BaseModel):
+    workout_date: date
+    exercises: List[ExerciseInput]
 
-
-class WorkoutCreateUserModel(BaseModel):
+class WorkoutCreateInternal(BaseModel):
     user_id: int
     workout_date: date
-    exercises: List[ExerciseEntry]
+    exercises: List[ExerciseInput]
 
-
-
-class WorkoutCreateModel(BaseModel):
-    user_id: int
-    day: date
-
-
-
-class WorkoutFromClient(BaseModel):
-    telegram_id: int
-    workout_date: date  # или datetime
-    exercises: List[ExerciseEntry]
-
-
-class WorkoutReadModel(BaseModel):
+class WorkoutRead(BaseModel):
     id: int
     day: date
-    exercises: List[WorkoutExerciseReadModel]
+    exercises: List[WorkoutExerciseRead]
 
     model_config = ConfigDict(from_attributes=True)
 
 
+class WorkoutUserIDFilter(BaseModel):
+    user_id: int
