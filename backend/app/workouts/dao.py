@@ -1,57 +1,17 @@
-from datetime import date, timedelta, datetime, time, timezone
-from typing import List
-from fastapi import HTTPException
+
 from loguru import logger
 from sqlalchemy import select, and_, func
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 from app.dao.base import BaseDAO
-from app.dao.models import User, Workout, WorkoutExercise, Exercise, Set
-from app.api.schemas import WorkoutCreateUserModel, WorkoutCreateModel, WorkoutExerciseCreateModel, SetCreateModel, WorkoutTempReadModel, WorkoutExerciseReadModel
-
-
-class UserDAO(BaseDAO):
-    model = User
-
-    @classmethod
-    async def get_user_id_by_tg_id(cls, session: AsyncSession, telegram_id: int) -> int | None:
-        query = select(cls.model.id).filter_by(telegram_id =telegram_id)
-        result = await session.execute(query)
-        return result.scalar_one_or_none()
-    
-
-
-            
-class ExerciseDAO(BaseDAO):
-    model = Exercise
-
-
-
-class WorkoutExerciseDAO(BaseDAO):
-    model = WorkoutExercise
-
-    @classmethod
-    async def get_by_workout_id(cls, session: AsyncSession, workout_id: int):
-        result = await session.execute(
-            select(cls.model).where(cls.model.workout_id == workout_id)
-        )
-        return result.scalars().all()
-    
-
-class SetDAO(BaseDAO):
-    model = Set
-
-    @classmethod
-    async def get_by_workout_exercise_id(cls, session: AsyncSession, workout_exercise_id: int):
-        result = await session.execute(
-            select(cls.model)
-            .where(cls.model.workout_exercise_id == workout_exercise_id)
-            .order_by(cls.model.set_number)
-        )
-        return result.scalars().all()
-    
-
+from app.workouts.models import Workout
+from app.workout_exercises.models import WorkoutExercise
+from app.workouts.schemas import WorkoutTempReadModel, WorkoutCreateUserModel, WorkoutCreateModel
+from app.workout_exercises.dao import WorkoutExerciseDAO
+from app.workout_exercises.schemas import WorkoutExerciseCreateModel
+from app.sets.dao import SetDAO
+from app.sets.schemas import SetCreateModel
 
 class WorkoutDAO(BaseDAO):
     model = Workout

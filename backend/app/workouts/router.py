@@ -1,16 +1,16 @@
-from ast import Dict, List
-from datetime import date
-from fastapi import APIRouter, Request, Query, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.dao.session_maker_fast_api import db
-from app.api.dao import UserDAO, WorkoutDAO, ExerciseDAO
-from loguru import logger
-from app.api.schemas import TelegramIDModel,WorkoutFromClient, WorkoutCreateUserModel, WorkoutReadModel
+from app.users.dao import UserDAO
+from app.users.schemas import TelegramIDModel
+from app.workouts.dao import WorkoutDAO
+from app.workouts.schemas import WorkoutFromClient, WorkoutCreateUserModel, WorkoutReadModel
+
+
 
 
 router = APIRouter()
-
-
 
 @router.get("/users/{telegram_id}/workouts")
 async def get_user_workouts(
@@ -54,12 +54,3 @@ async def get_workout(workout_id: int, session: AsyncSession = Depends(db.get_db
     return WorkoutReadModel.model_validate(workout)
 
 
-
-@router.get("/exercises")
-async def get_exercises(
-    session: AsyncSession = Depends(db.get_db)
-):
-    exercises = await ExerciseDAO.find_all(session=session)
-    if not exercises:
-        raise HTTPException(status_code=404, detail="User not found")
-    return exercises

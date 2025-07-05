@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 # from fastapi.staticfiles import StaticFiles
-from app.api.router import router as router_api
+from app.workouts.router import router as workout_router
+from app.exercises.router import router as exercise_router
 from app.async_client import http_client_manager
 from app.config import settings
 from app.tg_bot.router import router as router_tg_bot
@@ -69,5 +70,6 @@ app.add_middleware(
     allow_headers=["*"],  # Разрешаем все заголовки
 )
 
-app.include_router(router_api)
+app.include_router(workout_router)
+app.include_router(exercise_router)
 app.include_router(router_tg_bot)
