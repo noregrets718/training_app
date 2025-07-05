@@ -71,11 +71,11 @@ from app.workouts.schemas import WorkoutCreateRequest, WorkoutCreateInternal, Wo
 
 
 
-router = APIRouter(prefix="/workouts", tags=["Workouts"])
+router = APIRouter()
 
 
 
-@router.get("/users/{telegram_id}", response_model=List[WorkoutRead])
+@router.get("/workouts/users/{telegram_id}", response_model=List[WorkoutRead])
 async def get_workouts_by_user(
     telegram_id: int,
     session: AsyncSession = Depends(db.get_db)
