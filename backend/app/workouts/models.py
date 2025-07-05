@@ -3,10 +3,11 @@ from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import  date
 from app.database import Base
-from app.workout_exercises.models import WorkoutExercise
 
 if TYPE_CHECKING:
     from app.users.models import User
+if TYPE_CHECKING:
+    from app.workout_exercises.models import WorkoutExercise
 
 class Workout(Base):
     __tablename__ = "workouts"

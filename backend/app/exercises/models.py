@@ -1,9 +1,11 @@
-from typing import List
+from typing import List, TYPE_CHECKING
 from sqlalchemy import Integer, Text, ForeignKey, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import  date
 from app.database import Base
-from app.workout_exercises.models import WorkoutExercise
+
+if TYPE_CHECKING:
+    from app.workout_exercises.models import WorkoutExercise
 
 class Exercise(Base):
     __tablename__ = "exercises"

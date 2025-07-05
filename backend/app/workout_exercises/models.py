@@ -1,10 +1,18 @@
-from typing import List
+from typing import List, TYPE_CHECKING
 from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
-from app.workouts.models import Workout
-from app.exercises.models import Exercise
-from app.sets.models import Set
+
+
+if TYPE_CHECKING:
+    from app.workouts.models import Workout
+
+if TYPE_CHECKING:
+    from app.exercises.models import Exercise
+
+if TYPE_CHECKING:
+    from app.sets.models import Set
+
 
 class WorkoutExercise(Base):
 

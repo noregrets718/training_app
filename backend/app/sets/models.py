@@ -1,7 +1,11 @@
+from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
-from app.workout_exercises.models import WorkoutExercise
+
+
+if TYPE_CHECKING:
+    from app.workout_exercises.models import WorkoutExercise
 
 class Set(Base):
     __tablename__ = 'sets'
@@ -13,4 +17,4 @@ class Set(Base):
     order:  Mapped[int] = mapped_column(nullable=False)
 
     #Relationships
-    workout_exercise: Mapped[WorkoutExercise] = relationship(back_populates="sets")
+    workout_exercise: Mapped["WorkoutExercise"] = relationship(back_populates="sets")
