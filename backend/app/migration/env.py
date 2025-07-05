@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 from app.config import database_url
 from TrainingApp.backend.app.database import Base
+from app.users.models import User
 from app.workouts.models import Workout
 from app.workout_exercises.models import WorkoutExercise
 from app.exercises.models import Exercise
