@@ -56,7 +56,7 @@
 
 from datetime import date
 from typing import List
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from app.workout_exercises.schemas import WorkoutExerciseRead
 
 class SetInput(BaseModel):
@@ -80,7 +80,10 @@ class WorkoutCreateInternal(BaseModel):
 
 class WorkoutCreate(BaseModel):
     user_id: int
-    workout_date: date
+    day: date = Field(alias="workout_date")
+
+    class Config:
+        populate_by_name = True  
 
 
 class WorkoutReadBrief(BaseModel):
