@@ -127,11 +127,12 @@ class WorkoutDAO(BaseDAO):
                     ))
 
                 stmt = (
-                select(Workout)
+                select(cls.model)
                 .options(
-                    selectinload(Workout.exercises).selectinload(WorkoutExercise.sets)
+                    joinedload(cls.model.exercises).joinedload(WorkoutExercise.sets),
+                    joinedload(cls.model.exercises).joinedload(WorkoutExercise.exercise)
                 )
-                .where(Workout.id == workout.id)
+                .filter(cls.model.id == workout.id)
             )
             result = await session.execute(stmt)
             workout_with_exercises = result.scalar_one()
