@@ -93,6 +93,7 @@ from app.workouts.models import Workout
 from app.workout_exercises.dao import WorkoutExerciseDAO
 from app.sets.dao import SetDAO
 from app.sets.schemas import SetCreate
+from app.workout_exercises.models import WorkoutExercise
 from app.workout_exercises.schemas import WorkoutExerciseCreate
 from app.workouts.schemas import WorkoutCreateInternal
 
@@ -139,8 +140,8 @@ class WorkoutDAO(BaseDAO):
         query = (
             select(cls.model)
             .options(
-                joinedload(cls.model.exercises).joinedload("sets"),
-                joinedload(cls.model.exercises).joinedload("exercise")
+                joinedload(cls.model.exercises).joinedload(WorkoutExercise.sets),
+                joinedload(cls.model.exercises).joinedload(WorkoutExercise.exercise)
             )
             .filter(cls.model.id == workout_id)
         )
