@@ -109,7 +109,7 @@ class WorkoutDAO(BaseDAO):
         try:
             workout = await cls.add(session, cls.model(
                 user_id=data.user_id,
-                date=data.workout_date
+                day=data.workout_date
             ))
 
             for exercise in data.exercises:
