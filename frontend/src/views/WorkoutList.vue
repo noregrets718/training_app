@@ -52,8 +52,8 @@ const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id
 store.setTelegramId(telegramId);
 const BASE_SITE = inject("BASE_SITE");
 console.log("Telegram ID:", telegramId);
-console.log("fddfdf")
-console.log(`${BASE_SITE}/workouts/users/${telegramId}`)
+console.log("fddfdf");
+console.log(`${BASE_SITE}/workouts/users/${telegramId}`);
 onMounted(async () => {
   try {
     
