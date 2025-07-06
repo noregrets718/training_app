@@ -84,7 +84,7 @@
 #             raise
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.exc import SQLAlchemyError
 from loguru import logger
 
@@ -126,7 +126,18 @@ class WorkoutDAO(BaseDAO):
                         order=order
                     ))
 
-            return workout
+                stmt = (
+                select(Workout)
+                .options(
+                    selectinload(Workout.exercises).selectinload(WorkoutExercise.sets)
+                )
+                .where(Workout.id == workout.id)
+            )
+            result = await session.execute(stmt)
+            workout_with_exercises = result.scalar_one()
+
+            return workout_with_exercises
+
 
         except SQLAlchemyError as e:
             await session.rollback()
