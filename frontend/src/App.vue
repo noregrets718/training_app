@@ -1,9 +1,15 @@
-<script setup lang="ts"></script>
+<script setup>
+import { useRoute } from 'vue-router'
+import BottomNavBar from './components/BottomNavBar.vue'
+
+const route = useRoute()
+
+const hiddenRoutes = ['/sets-entry', '/exercise-select']
+</script>
 
 <template>
-  <div class="container mx-auto p-4">
+  <div class="pb-20">
     <router-view />
+    <BottomNavBar v-if="!hiddenRoutes.includes(route.path)" />
   </div>
 </template>
-
-<style scoped></style>
