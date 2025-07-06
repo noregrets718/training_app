@@ -135,7 +135,7 @@ class WorkoutDAO(BaseDAO):
                 .filter(cls.model.id == workout.id)
             )
             result = await session.execute(stmt)
-            workout_with_exercises = result.scalar_one()
+            workout_with_exercises = result.unique().scalar_one_or_none()
 
             return workout_with_exercises
 
