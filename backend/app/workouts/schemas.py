@@ -71,10 +71,16 @@ class WorkoutCreateRequest(BaseModel):
     workout_date: date
     exercises: List[ExerciseInput]
 
+
 class WorkoutCreateInternal(BaseModel):
     user_id: int
     workout_date: date
     exercises: List[ExerciseInput]
+
+
+class WorkoutCreate(BaseModel):
+    user_id: int
+    workout_date: date
 
 
 class WorkoutReadBrief(BaseModel):
