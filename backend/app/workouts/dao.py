@@ -96,6 +96,7 @@ from app.sets.schemas import SetCreate
 from app.workout_exercises.models import WorkoutExercise
 from app.workout_exercises.schemas import WorkoutExerciseCreate
 from app.workouts.schemas import WorkoutCreateInternal
+from pydantic import BaseModel
 
 
 
@@ -106,11 +107,9 @@ class WorkoutDAO(BaseDAO):
 
     @classmethod
     async def add_full_workout(cls, session: AsyncSession, data: WorkoutCreateInternal) -> Workout:
+        values_dict = data.model_dump(exclude={"exercises"})
         try:
-            workout = await cls.add(session, cls.model(
-                user_id=data.user_id,
-                day=data.workout_date
-            ))
+            workout = await cls.add(session, BaseModel.model_validate(values_dict))
 
             for exercise in data.exercises:
                 workout_exercise = await WorkoutExerciseDAO.add(session, WorkoutExerciseCreate(
