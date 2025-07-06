@@ -67,7 +67,7 @@ from app.dao.session_maker_fast_api import db
 from app.users.dao import UserDAO
 from app.users.schemas import TelegramIDModel
 from app.workouts.dao import WorkoutDAO
-from app.workouts.schemas import WorkoutCreateRequest, WorkoutCreateInternal, WorkoutRead, WorkoutUserIDFilter
+from app.workouts.schemas import WorkoutCreateRequest, WorkoutCreateInternal, WorkoutReadFull, WorkoutReadBrief, WorkoutUserIDFilter
 
 
 
@@ -75,7 +75,7 @@ router = APIRouter()
 
 
 
-@router.get("/workouts/users/{telegram_id}", response_model=List[WorkoutRead])
+@router.get("/workouts/users/{telegram_id}", response_model=List[WorkoutReadBrief])
 async def get_workouts_by_user(
     telegram_id: int,
     session: AsyncSession = Depends(db.get_db)
@@ -94,7 +94,7 @@ async def get_workouts_by_user(
 
 
 
-@router.post("/users/{telegram_id}", response_model=WorkoutRead)
+@router.post("/users/{telegram_id}", response_model=WorkoutReadFull)
 async def create_workout_for_user(
     telegram_id: int,
     workout: WorkoutCreateRequest,
@@ -110,15 +110,15 @@ async def create_workout_for_user(
         exercises=workout.exercises
     )
     new_workout = await WorkoutDAO.add_full_workout(session, internal_data)
-    return WorkoutRead.model_validate(new_workout)
+    return WorkoutReadFull.model_validate(new_workout)
 
 
 
-@router.get("/{workout_id}", response_model=WorkoutRead)
+@router.get("/{workout_id}", response_model=WorkoutReadFull)
 async def get_workout_by_id(workout_id: int, session: AsyncSession = Depends(db.get_db)):
     workout = await WorkoutDAO.get_full_by_id(session, workout_id)
     if not workout:
         raise HTTPException(404, detail="Тренировка не найдена")
-    return WorkoutRead.model_validate(workout)
+    return WorkoutReadFull.model_validate(workout)
 
 

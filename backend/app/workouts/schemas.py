@@ -76,9 +76,13 @@ class WorkoutCreateInternal(BaseModel):
     workout_date: date
     exercises: List[ExerciseInput]
 
-class WorkoutRead(BaseModel):
+
+class WorkoutReadBrief(BaseModel):
     id: int
     day: date
+
+
+class WorkoutReadFull(WorkoutReadBrief):
     exercises: List[WorkoutExerciseRead]
 
     model_config = ConfigDict(from_attributes=True)
