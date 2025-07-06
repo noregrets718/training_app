@@ -107,9 +107,9 @@ class WorkoutDAO(BaseDAO):
 
     @classmethod
     async def add_full_workout(cls, session: AsyncSession, data: WorkoutCreateInternal) -> Workout:
-        values: WorkoutCreate = data.model_dump(exclude={"exercises"})
+        values = data.model_dump(exclude={"exercises"})
         try:
-            workout = await cls.add(session, values)
+            workout = await cls.add(session, values.model_validate(WorkoutCreate))
 
             for exercise in data.exercises:
                 workout_exercise = await WorkoutExerciseDAO.add(session, WorkoutExerciseCreate(
