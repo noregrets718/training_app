@@ -12,14 +12,34 @@
       <div>📋</div>
       <div class="text-xs">Программы</div>
     </button>
+    <button
+      v-if="isAdmin"
+      @click="goTo('/admin')"
+      class="flex flex-col items-center text-sm text-red-500"
+    >
+      <span>🛠️</span>
+      <span>Админ</span>
+    </button>
   </nav>
 </template>
 
+
+
+
 <script setup>
 import { useRouter } from 'vue-router'
+import { ADMIN_IDS } from '../constants/admins'
+import { useWorkoutStore } from '../stores/workoutStore'
+
+const store = useWorkoutStore()
 const router = useRouter()
+const isAdmin = ADMIN_IDS.includes(store.telegramId)
+
 
 const goTo = (path) => {
   router.push(path)
 }
+
+
+
 </script>
