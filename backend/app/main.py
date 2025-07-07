@@ -63,6 +63,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:80",
+        "http://localhost:5173",
         "https://2565-80-64-17-22.ngrok-free.app"  # ← сюда вставь свой ngrok-URL
     ],  # Разрешаем все источники
     allow_credentials=True,
