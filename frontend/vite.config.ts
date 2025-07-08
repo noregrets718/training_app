@@ -9,11 +9,11 @@ export default defineConfig({
     port: 5173,
     cors: true, // важно!
     strictPort: true,
-    allowedHosts: ['trainingapp.ru'],
+    allowedHosts: ['trainingapp.ru, www.trainingapp.ru'],
     hmr: {
       protocol: 'wss',
       host: 'trainingapp.ru',
-      path: '/wss', // путь WebSocket (по умолчанию /, но можно указать явно)     // это то, что слушает Vite внутри
+      path: '/ws', // путь WebSocket (по умолчанию /, но можно указать явно)     // это то, что слушает Vite внутри
     },
   },
 })
