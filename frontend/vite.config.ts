@@ -13,7 +13,8 @@ export default defineConfig({
     hmr: {
       protocol: 'wss',
       host: 'trainingapp.ru',
-      path: '/ws', // путь WebSocket (по умолчанию /, но можно указать явно)     // это то, что слушает Vite внутри
+      clientPort: 443
+      // path: '/ws', // путь WebSocket (по умолчанию /, но можно указать явно)     // это то, что слушает Vite внутри
     },
   },
 })
