@@ -13,7 +13,7 @@ export default defineConfig({
     hmr: {
       protocol: 'wss',
       host: 'trainingapp.ru',
-      port: 443,
+      port: 5173,
       path: '/ws', // путь WebSocket (по умолчанию /, но можно указать явно)
     },
   },
