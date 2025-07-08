@@ -4,16 +4,15 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
-  server: {
-    host: '0.0.0.0', // Важно для Docker
+   server: {
+    host: '0.0.0.0',
     port: 5173,
-    // allowedHosts: [
-      
-    //   'localhost',
-    //   '127.0.0.1',
-    //   'https://7285-80-64-17-22.ngrok-free.app'
-    // Можно добавить еще, если нужно
-    allowedHosts: ['trainingapp.ru', 'www.trainingapp.ru']
-    ,
+    hmr: {
+      protocol: 'wss',  // или 'ws', если без SSL
+      host: 'trainingapp.ru',
+      port: 443, // если https, иначе 80 для http
+      clientPort: 443, // порт, на котором клиент будет пытаться подключиться
+    },
+    allowedHosts: ['trainingapp.ru', 'www.trainingapp.ru'],
   },
 })
