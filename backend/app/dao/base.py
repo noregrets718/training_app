@@ -1,6 +1,6 @@
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, update
 from sqlalchemy.exc import SQLAlchemyError
 from pydantic import BaseModel
 from loguru import logger
@@ -79,4 +79,38 @@ class BaseDAO:
             return records
         except SQLAlchemyError as e:
             logger.error(f"Ошибка при поиске всех записей по фильтрам {filter_dict}: {e}")
+            raise
+
+
+    @classmethod
+    async def delete(cls, session: AsyncSession, object_id: int) -> None:
+        logger.info(f"Удаление записи {cls.model.__name__} с ID={object_id}")
+        try:
+            stmt = delete(cls.model).where(cls.model.id == object_id)
+            await session.execute(stmt)
+            logger.info(f"Запись с ID={object_id} удалена.")
+        except SQLAlchemyError as e:
+            await session.rollback()
+            logger.error(f"Ошибка при удалении записи с ID={object_id}: {e}")
+            raise
+
+    
+    
+    @classmethod
+    async def update(
+        cls, session: AsyncSession, object_id: int, data: BaseModel
+    ):
+        update_data = data.model_dump(exclude_unset=True)
+        logger.info(f"Обновление {cls.model.__name__} ID={object_id} с данными: {update_data}")
+        try:
+            stmt = (
+                update(cls.model)
+                .where(cls.model.id == object_id)
+                .values(**update_data)
+            )
+            await session.execute(stmt)
+            logger.info(f"Обновление записи {cls.model.__name__} с ID={object_id} прошло успешно.")
+        except SQLAlchemyError as e:
+            await session.rollback()
+            logger.error(f"Ошибка при обновлении записи с ID={object_id}: {e}")
             raise

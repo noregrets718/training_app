@@ -7,6 +7,7 @@ import SetsEntry from "../views/SetsEntry.vue";
 import WorkoutDetail from "../views/WorkoutDetail.vue";
 import StatsPage from "../views/StatsPage.vue";
 import ProgramsPage from "../views/ProgramsPage.vue";
+import AdminPanel from "../views/AdminPanel.vue";
 
 const routes = [
   { path: '/', name: "WorkoutList", component: WorkoutList },
@@ -16,6 +17,7 @@ const routes = [
   { path: '/workout/:id', component: WorkoutDetail},
   { path: '/stats', name: 'Stats', component: StatsPage },
   { path: '/programs', name: 'Programs', component: ProgramsPage },
+  { path: '/admin', component: AdminPanel },
 
 //   { path: "/booking/:doctorId", name: "Booking", component: Booking },
 ];
