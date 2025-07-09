@@ -12,7 +12,7 @@
       <div>📋</div>
       <div class="text-xs">Программы</div>
     </button>
-    <button v-if="isAdmin" @click="goTo('/admin')" class="flex-1 text-center">
+    <button @click="goTo('/admin')" class="flex-1 text-center">
       <div>🛠️</div>
       <div class="text-xs">Админ</div>
     </button>
