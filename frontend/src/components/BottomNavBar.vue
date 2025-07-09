@@ -12,14 +12,18 @@
       <div>📋</div>
       <div class="text-xs">Программы</div>
     </button>
-    <button
+    <button v-if="isAdmin" @click="goTo('/admin')" class="flex-1 text-center">
+      <div>🛠️</div>
+      <div class="text-xs">Админ</div>
+    </button>
+    <!-- <button
       v-if="isAdmin"
       @click="goTo('/admin')"
       class="flex flex-col items-center text-sm text-red-500"
     >
       <span>🛠️</span>
       <span>Админ</span>
-    </button>
+    </button> -->
   </nav>
 </template>
 
