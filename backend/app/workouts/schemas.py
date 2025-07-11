@@ -55,7 +55,8 @@
 
 
 from datetime import date
-from typing import List
+from token import OP
+from typing import List, Optional
 from pydantic import BaseModel, ConfigDict, Field
 from app.workout_exercises.schemas import WorkoutExerciseRead
 
@@ -71,21 +72,21 @@ class ExerciseInput(BaseModel):
 #Приходит от пользователя 
 class WorkoutCreateRequest(BaseModel):
     workout_date: date
-    title: str
+    title: Optional[str]
     exercises: List[ExerciseInput]
 
 #используется в методе дао как промежуточная модель
 class WorkoutCreateInternal(BaseModel):
     user_id: int
     workout_date: date
-    title: str
+    title: Optional[str]
     exercises: List[ExerciseInput]
 
 #использутеся для создания записи в бд 
 class WorkoutCreate(BaseModel):
     user_id: int
     day: date = Field(alias="workout_date")
-    title: str
+    title: Optional[str]
 
     class Config:
         populate_by_name = True  
@@ -95,7 +96,7 @@ class WorkoutCreate(BaseModel):
 class WorkoutReadBrief(BaseModel):
     id: int
     day: date
-    title: str
+    title: Optional[str]
 
 #используется для отображения полной тренировки при клике на нее
 class WorkoutReadFull(WorkoutReadBrief):
