@@ -82,6 +82,7 @@ const submit = async () => {
   try {
     await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}`, {
       workout_date: store.date,
+      title: store.title,
       exercises: store.exercises
     }, {
       headers: { 'ngrok-skip-browser-warning': 'true' }
