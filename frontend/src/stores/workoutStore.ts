@@ -4,6 +4,7 @@ export const useWorkoutStore = defineStore('workout', {
   state: () => ({
     telegramId: null as number | null,
     date: '', // выбранная дата тренировки, строка 'YYYY-MM-DD'
+    title: '',
     currentExerciseId: null as number | null, // выбранное упражнение на текущем шаге
     exercises: [] as {
       exercise_id: number
@@ -19,9 +20,15 @@ export const useWorkoutStore = defineStore('workout', {
     setDate(date: string) {
       this.date = date
     },
+
+    setTitle(title: string) {
+      this.title = title
+    },
+
     setCurrentExerciseId(id: number) {
       this.currentExerciseId = id
     },
+
     addSetToCurrentExercise(set: { weight: number; repetitions: number }) {
       if (this.currentExerciseId === null) return
 
@@ -46,6 +53,7 @@ export const useWorkoutStore = defineStore('workout', {
 
     clearWorkout() {
       this.date = ''
+      this.title = ''
       this.currentExerciseId = null
       this.exercises = []
     }

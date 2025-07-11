@@ -100,7 +100,7 @@ const nextMonth = () => {
 
 const next = () => {
   store.setDate(selectedDate.value)
-  router.push('/exercise-select')
+  router.push('/workout-title')
 }
 </script>
 
