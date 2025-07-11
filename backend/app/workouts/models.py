@@ -15,6 +15,7 @@ class Workout(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     day: Mapped[date] = mapped_column(nullable=False)
+    title: Mapped[str] = mapped_column(nullable=True)
 
 
     #Relationships

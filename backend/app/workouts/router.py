@@ -107,6 +107,7 @@ async def create_workout_for_user(
     internal_data = WorkoutCreateInternal(
         user_id=user_id,
         workout_date=workout.workout_date,
+        title=workout.title,
         exercises=workout.exercises
     )
     new_workout = await WorkoutDAO.add_full_workout(session, internal_data)
