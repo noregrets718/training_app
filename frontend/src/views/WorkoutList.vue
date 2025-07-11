@@ -16,7 +16,7 @@
             class="bg-gray-50 hover:bg-gray-100 cursor-pointer rounded-lg px-4 py-3 shadow-sm transition-shadow duration-200"
           >
             <span class="text-gray-900 font-medium">
-              {{ new Date(w.day).toLocaleDateString() }}
+               {{ new Date(w.day).toLocaleDateString() }} — {{ w.title }}
             </span>
           </li>
         </ul>
