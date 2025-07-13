@@ -80,7 +80,7 @@
 </template>
 
 <script setup>
-import { ref, inject} from 'vue'
+import { ref, inject } from 'vue'
 import { useWorkoutStore } from '../stores/workoutStore'
 import { useRouter } from 'vue-router'
 
