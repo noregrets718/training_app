@@ -158,3 +158,20 @@ class WorkoutDAO(BaseDAO):
         )
         result = await session.execute(query)
         return result.unique().scalar_one_or_none()
+    
+
+    
+    @classmethod
+    async def delete(cls, session: AsyncSession, object_id: int) -> None:
+        logger.info(f"Удаление записи {cls.model.__name__} с ID={object_id}")
+        try:
+            obj = await session.get(cls.model, object_id)
+            if obj is None:
+                logger.warning(f"Объект с ID={object_id} не найден")
+                return
+            await session.delete(obj)  # <--- вызывает каскадное удаление
+            logger.info(f"Запись с ID={object_id} удалена.")
+        except SQLAlchemyError as e:
+            await session.rollback()
+            logger.error(f"Ошибка при удалении записи с ID={object_id}: {e}")
+            raise
