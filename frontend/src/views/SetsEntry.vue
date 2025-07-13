@@ -80,7 +80,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject} from 'vue'
 import { useWorkoutStore } from '../stores/workoutStore'
 import { useRouter } from 'vue-router'
 
@@ -91,6 +91,7 @@ const sets = ref([])
 const weight = ref(null)
 const repetitions = ref(null)
 const showForm = ref(false)
+const BASE_SITE = inject("BASE_SITE");
 
 const addSet = () => {
   if (weight.value > 0 && repetitions.value > 0) {
