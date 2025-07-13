@@ -123,10 +123,21 @@ const done = () => {
     alert('Выберите упражнение и добавьте хотя бы один подход')
   }
 }
-const submit= () => {
-  // Здесь можно сохранить данные в стор или отправить на сервер
-  // Например: store.addSets(sets.value)
-  router.push('/exercise-select')
+const submit = async () => {
+  try {
+    await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}`, {
+      workout_date: store.date,
+      title: store.title,
+      exercises: store.exercises
+    }, {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    })
+    store.clearWorkout()
+    router.push('/')
+  } catch (err) {
+    console.error('Ошибка при сохранении:', err)
+    alert('Ошибка при сохранении тренировки')
+  }
 }
 
 </script>
