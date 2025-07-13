@@ -12,14 +12,21 @@
           <li
             v-for="w in workouts"
             :key="w.id"
-            @click="goToWorkout(w.id)"
-            class="bg-gray-50 hover:bg-gray-100 cursor-pointer rounded-lg px-4 py-3 shadow-sm transition-shadow duration-200"
+            class="bg-gray-50 hover:bg-gray-100 rounded-lg px-4 py-3 shadow-sm transition-shadow duration-200 flex justify-between items-center"
           >
-            <span class="text-gray-900 font-medium">
-               {{ new Date(w.day).toLocaleDateString() }} — {{ w.title }}
-            </span>
-          </li>
-        </ul>
+            <div @click="goToWorkout(w.id)" class="cursor-pointer flex-1">
+              <span class="text-gray-900 font-medium">
+                {{ new Date(w.day).toLocaleDateString() }} — {{ w.title }}
+              </span>
+            </div>
+            <button
+              @click.stop="deleteWorkout(w.id)"
+              class="ml-4 text-red-600 hover:text-red-800 text-sm"
+            >
+              ✖
+            </button>
+  </li> 
+</ul>
       </div>
 
       <div v-else class="text-center text-gray-500 mb-6 italic">
@@ -81,5 +88,19 @@ const goAddWorkout = () => {
 
 const goToWorkout = (id) => {
   router.push(`/workout/${id}`)
+}
+
+const deleteWorkout = async (id) => {
+  try {
+    await axios.delete(`${BASE_SITE}/workouts/${id}`, {
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }
+    });
+    workouts.value = workouts.value.filter(w => w.id !== id); // удалить из списка
+  } catch (e) {
+    console.error('Ошибка при удалении тренировки', e);
+    alert('Не удалось удалить тренировку');
+  }
 }
 </script>

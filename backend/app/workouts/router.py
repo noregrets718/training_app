@@ -123,3 +123,9 @@ async def get_workout_by_id(workout_id: int, session: AsyncSession = Depends(db.
     return WorkoutReadFull.model_validate(workout)
 
 
+@router.delete("/{workout_id}")
+async def delete_workout(workout_id: int, session: AsyncSession = Depends(db.get_db_with_commit)):
+    await WorkoutDAO.delete(session, workout_id)
+    return {"message": "Workout deleted"}
+
+
