@@ -83,6 +83,8 @@
 import { ref, inject } from 'vue'
 import { useWorkoutStore } from '../stores/workoutStore'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+
 
 const store = useWorkoutStore()
 const router = useRouter()
