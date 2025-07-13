@@ -126,7 +126,9 @@ const done = () => {
     alert('Выберите упражнение и добавьте хотя бы один подход')
   }
 }
+
 const submit = async () => {
+  store.addExercise({ exercise_id: store.currentExerciseId, sets: [...sets.value] })
   try {
     await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}`, {
       workout_date: store.date,
