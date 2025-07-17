@@ -27,4 +27,7 @@ class WorkoutExercise(Base):
     #Relationships
     workout: Mapped["Workout"] = relationship(back_populates="exercises")
     exercise: Mapped["Exercise"] = relationship(back_populates='workout_exercises')
-    sets:  Mapped[List["Set"]] = relationship(back_populates="workout_exercise")
+    sets: Mapped[List["Set"]] = relationship(
+    back_populates="workout_exercise",
+    cascade="all, delete-orphan"
+)
