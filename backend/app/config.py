@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     BASE_SITE: str
     TG_API_SITE: str
     FRONT_SITE: str
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int
 
     model_config = SettingsConfigDict(
         env_file=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")

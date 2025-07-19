@@ -6,6 +6,7 @@
       v-model="title"
       placeholder="Например: Грудь/бицепс"
       class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      @input="autoSaveTitle"
     />
 
     <button
@@ -19,13 +20,35 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter} from 'vue-router'
 import { useWorkoutStore } from '../stores/workoutStore'
+import axios from 'axios'
 
 const title = ref('')
 const router = useRouter()
 const store = useWorkoutStore()
+const telegramId = store.telegramId
+
+const autoSaveTitle = async () => {
+  if (!telegramId) return
+  await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}/unfinished`, {
+    title: title.value,
+  })
+}
+
+onMounted(async () => {
+  if (!telegramId) return
+  try {
+    const response = await axios.get(`${BASE_SITE}/workouts/users/${store.telegramId}/unfinished`)
+    if (response.data?.title) {
+      title.value = response.data.title
+      store.setTitle(response.data.title)
+    }
+  } catch (e) {
+    console.error('Ошибка при загрузке незавершённой тренировки', e)
+  }
+})
 
 const goToExerciseSelect = () => {
     store.setTitle(title.value)

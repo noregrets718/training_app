@@ -68,10 +68,15 @@ from app.users.dao import UserDAO
 from app.users.schemas import TelegramIDModel
 from app.workouts.dao import WorkoutDAO
 from app.workouts.schemas import WorkoutCreateRequest, WorkoutCreateInternal, WorkoutReadFull, WorkoutReadBrief, WorkoutUserIDFilter
+from app.redis.redis_cache import save_unfinished_workout, get_unfinished_workout, delete_unfinished_workout
 
 
 
 router = APIRouter(prefix="/workouts", tags=["Workouts"])
+
+
+
+
 
 
 
@@ -111,6 +116,9 @@ async def create_workout_for_user(
         exercises=workout.exercises
     )
     new_workout = await WorkoutDAO.add_full_workout(session, internal_data)
+
+    await delete_unfinished_workout(telegram_id)
+
     return WorkoutReadFull.model_validate(new_workout)
 
 
@@ -126,6 +134,25 @@ async def get_workout_by_id(workout_id: int, session: AsyncSession = Depends(db.
 @router.delete("/{workout_id}")
 async def delete_workout(workout_id: int, session: AsyncSession = Depends(db.get_db_with_commit)):
     await WorkoutDAO.delete(session, workout_id)
+    
     return {"message": "Workout deleted"}
 
+
+
+@router.post("/users/{telegram_id}/unfinished")
+async def save_unfinished(
+    telegram_id: int,
+    workout_data: dict  # можно также типизировать Pydantic моделью, если хочешь
+):
+    await save_unfinished_workout(telegram_id, workout_data)
+    return {"message": "Unfinished workout saved"}
+
+
+
+@router.get("/users/{telegram_id}/unfinished")
+async def get_unfinished(telegram_id: int):
+    data = await get_unfinished_workout(telegram_id)
+    if data:
+        return data
+    raise HTTPException(404, detail="Нет сохранённой незавершённой тренировки")
 
