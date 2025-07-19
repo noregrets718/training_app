@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { useRouter} from 'vue-router'
 import { useWorkoutStore } from '../stores/workoutStore'
 import axios from 'axios'
@@ -29,6 +29,7 @@ const title = ref('')
 const router = useRouter()
 const store = useWorkoutStore()
 const telegramId = store.telegramId
+const BASE_SITE = inject("BASE_SITE");
 
 const autoSaveTitle = async () => {
   if (!telegramId) return
