@@ -7,7 +7,7 @@
       v-model="title"
       placeholder="Например: Грудь/бицепс"
       class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-      @input="autoSaveTitle"
+      
     />
 
     <button
@@ -35,25 +35,17 @@ const nav = useNavigationStore()
 const telegramId = store.telegramId
 const BASE_SITE = inject("BASE_SITE");
 
-const autoSaveTitle = async () => {
-  if (!telegramId) return
-  await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}/unfinished`, {
-    title: title.value,
-  })
-}
+// const autoSaveTitle = async () => {
+//   if (!telegramId) return
+//   await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}/unfinished`, {
+//     title: title.value,
+//   })
+// }
 
 onMounted(async () => {
   nav.setLastWorkoutRoute('/workout-title')
-  if (!telegramId) return
-  try {
-    const response = await axios.get(`${BASE_SITE}/workouts/users/${store.telegramId}/unfinished`)
-    if (response.data?.title) {
-      title.value = response.data.title
-      store.setTitle(response.data.title)
-    }
-  } catch (e) {
-    console.error('Ошибка при загрузке незавершённой тренировки', e)
-  }
+  title.value = store.title
+  
 })
 
 const goToExerciseSelect = () => {
