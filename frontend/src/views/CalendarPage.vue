@@ -1,5 +1,6 @@
 <template>
   <div class="p-6 min-h-screen bg-gray-50 flex flex-col max-w-md mx-auto rounded-lg shadow-lg">
+    <BackButton />
     <h1 class="text-xl font-bold mb-4 text-center">Выберите дату тренировки</h1>
 
     <div class="flex justify-between items-center mb-4">
@@ -51,6 +52,7 @@ import { useNavigationStore } from '../stores/navigationStore'
 import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
+import BackButton from '../components/BackButton.vue'
 
 dayjs.locale('ru')
 
