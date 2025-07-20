@@ -100,11 +100,33 @@ const BASE_SITE = inject("BASE_SITE");
 
 onMounted(() => {
   nav.setLastWorkoutRoute('/sets-entry')
+  const currentId = store.currentExerciseId
+  if (currentId) {
+    const found = store.exercises.find(e => e.exercise_id === currentId)
+    sets.value = found ? [...found.sets] : []
+  }
 })
 
 const addSet = () => {
   if (weight.value > 0 && repetitions.value > 0) {
-    sets.value.push({ weight: weight.value, repetitions: repetitions.value })
+    const newSet = { weight: weight.value, repetitions: repetitions.value }
+
+    sets.value.push(newSet)
+
+    // Обновим упражнение в store
+    const currentId = store.currentExerciseId
+    if (currentId) {
+      const existing = store.exercises.find(e => e.exercise_id === currentId)
+      if (existing) {
+        existing.sets = [...sets.value] // заменим подходы
+      } else {
+        store.addExercise({
+          exercise_id: currentId,
+          sets: [newSet],
+        })
+      }
+    }
+
     weight.value = null
     repetitions.value = null
     showForm.value = false
@@ -135,7 +157,7 @@ const done = () => {
 }
 
 const submit = async () => {
-  store.addExercise({ exercise_id: store.currentExerciseId, sets: [...sets.value] })
+  // store.addExercise({ exercise_id: store.currentExerciseId, sets: [...sets.value] })
   try {
     await axios.post(`${BASE_SITE}/workouts/users/${store.telegramId}`, {
       workout_date: store.date,
