@@ -66,6 +66,7 @@ const BASE_SITE = inject('BASE_SITE')
 
 // Загрузка упражнений
 onMounted(async () => {
+
   nav.setLastWorkoutRoute('/exercise-select')
   try {
     const res = await axios.get(`${BASE_SITE}/exercises`, {
