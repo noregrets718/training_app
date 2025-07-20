@@ -47,6 +47,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useWorkoutStore } from '../stores/workoutStore'
+import { useNavigationStore } from '../stores/navigationStore'
 import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
@@ -54,12 +55,14 @@ import 'dayjs/locale/ru'
 dayjs.locale('ru')
 
 const store = useWorkoutStore()
+const nav = useNavigationStore()
 const router = useRouter()
 
 const currentMonth = ref(dayjs().startOf('month'))
 const selectedDate = ref('')
 
 onMounted(() => {
+  nav.setLastWorkoutRoute('/calendar')
   const today = dayjs()
   selectedDate.value = today.format('YYYY-MM-DD')
 })
