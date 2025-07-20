@@ -147,7 +147,7 @@ const cancel = () => {
 
 const done = () => {
   if (sets.value.length > 0 && store.currentExerciseId) {
-    store.addExercise({ exercise_id: store.currentExerciseId, sets: [...sets.value] })
+    // store.addExercise({ exercise_id: store.currentExerciseId, sets: [...sets.value] })
     sets.value = []
     store.setCurrentExerciseId(null)
     router.push('/exercise-select')
