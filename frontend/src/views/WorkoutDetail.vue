@@ -1,5 +1,6 @@
 <template>
   <div class="p-4">
+    <BackButton />
     <h1 class="text-2xl font-bold mb-4">Тренировка от {{ formattedDate }}</h1>
 
     <div v-if="workout">
@@ -28,6 +29,7 @@ import { onMounted, ref, computed, inject } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import { useNavigationStore } from '../stores/navigationStore'
+import BackButton from '../components/BackButton.vue'
 
 const route = useRoute()
 const nav = useNavigationStore()
