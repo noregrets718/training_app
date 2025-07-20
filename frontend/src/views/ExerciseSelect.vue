@@ -1,5 +1,6 @@
 <template>
   <div class="p-6 max-w-md mx-auto bg-white rounded-lg shadow-md">
+    <BackButton />
     <h1 class="text-2xl font-semibold mb-6 text-gray-900">Выберите упражнение</h1>
 
     <!-- Показываем уже добавленные упражнения -->
@@ -53,6 +54,8 @@ import axios from 'axios'
 import { useWorkoutStore } from '../stores/workoutStore'
 import { useNavigationStore } from '../stores/navigationStore'
 import { useRouter } from 'vue-router'
+import BackButton from '../components/BackButton.vue'
+
 
 const exerciseId = ref('')
 const exercises = ref([])

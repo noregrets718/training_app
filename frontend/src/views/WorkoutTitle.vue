@@ -1,5 +1,6 @@
 <template>
   <div class="p-6 max-w-md mx-auto bg-white rounded-lg shadow-md">
+    <BackButton />
     <h1 class="text-2xl font-semibold mb-4 text-gray-900">Название тренировки</h1>
 
     <input
@@ -25,6 +26,7 @@ import { useRouter} from 'vue-router'
 import { useWorkoutStore } from '../stores/workoutStore'
 import { useNavigationStore } from '../stores/navigationStore'
 import axios from 'axios'
+import BackButton from '../components/BackButton.vue'
 
 const title = ref('')
 const router = useRouter()
