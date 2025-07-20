@@ -37,7 +37,7 @@ const workout = ref<any>(null)
 const BASE_SITE = inject("BASE_SITE");
 
 onMounted(async () => {
-  nav.setLastWorkoutRoute('/workout/:id')
+  nav.setLastWorkoutRoute(route.fullPath)
   const res = await axios.get(`${BASE_SITE}/workouts/${workoutId}`,
     {
   headers: {
