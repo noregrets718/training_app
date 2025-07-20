@@ -27,14 +27,17 @@
 import { onMounted, ref, computed, inject } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import { useNavigationStore } from '../stores/navigationStore'
 
 const route = useRoute()
+const nav = useNavigationStore()
 const workoutId = route.params.id
 console.log(workoutId)
 const workout = ref<any>(null)
 const BASE_SITE = inject("BASE_SITE");
 
 onMounted(async () => {
+  nav.setLastWorkoutRoute('/workout/:id')
   const res = await axios.get(`${BASE_SITE}/workouts/${workoutId}`,
     {
   headers: {

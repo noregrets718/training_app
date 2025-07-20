@@ -82,11 +82,13 @@
 <script setup>
 import { ref, inject } from 'vue'
 import { useWorkoutStore } from '../stores/workoutStore'
+import { useNavigationStore } from '../stores/navigationStore'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 
 const store = useWorkoutStore()
+const nav = useNavigationStore()
 const router = useRouter()
 
 const sets = ref([])
@@ -94,6 +96,11 @@ const weight = ref(null)
 const repetitions = ref(null)
 const showForm = ref(false)
 const BASE_SITE = inject("BASE_SITE");
+
+
+onMounted(() => {
+  nav.setLastWorkoutRoute('/sets-entry')
+})
 
 const addSet = () => {
   if (weight.value > 0 && repetitions.value > 0) {

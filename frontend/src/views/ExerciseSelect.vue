@@ -51,16 +51,19 @@
 import { ref, onMounted, inject } from 'vue'
 import axios from 'axios'
 import { useWorkoutStore } from '../stores/workoutStore'
+import { useNavigationStore } from '../stores/navigationStore'
 import { useRouter } from 'vue-router'
 
 const exerciseId = ref('')
 const exercises = ref([])
 const store = useWorkoutStore()
+const nav = useNavigationStore()
 const router = useRouter()
 const BASE_SITE = inject('BASE_SITE')
 
 // Загрузка упражнений
 onMounted(async () => {
+  nav.setLastWorkoutRoute('/exercise-select')
   try {
     const res = await axios.get(`${BASE_SITE}/exercises`, {
       headers: { 'ngrok-skip-browser-warning': 'true' }
