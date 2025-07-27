@@ -47,7 +47,7 @@
 <script setup>
 import { ref, onMounted, inject} from 'vue'
 import { useRouter } from 'vue-router'
-import { useProgramStore } from '../stores/programStore'
+import { useProgramStore } from '../../stores/programStore'
 import axios from 'axios'
 
 const store = useProgramStore()
