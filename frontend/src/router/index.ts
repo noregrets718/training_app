@@ -6,9 +6,12 @@ import ExerciseSelect from "../views/ExerciseSelect.vue";
 import SetsEntry from "../views/SetsEntry.vue";
 import WorkoutDetail from "../views/WorkoutDetail.vue";
 import StatsPage from "../views/StatsPage.vue";
-import ProgramsPage from "../views/ProgramsPage.vue";
+import ProgramsView from "../views/Program/ProgramsView.vue";
 import AdminPanel from "../views/AdminPanel.vue";
 import WorkoutTitle from "../views/WorkoutTitle.vue";
+import MyProgramsView from "../views/Program/MyProgramsView.vue";
+import SharedPrograms from "../views/Program/SharedPrograms.vue";
+import ProgramCreate from "../views/Program/ProgramCreate.vue";
 
 const routes = [
   { path: '/', name: "WorkoutList", component: WorkoutList },
@@ -17,9 +20,13 @@ const routes = [
   { path: '/sets-entry', component: SetsEntry },
   { path: '/workout/:id', component: WorkoutDetail},
   { path: '/stats', name: 'Stats', component: StatsPage },
-  { path: '/programs', name: 'Programs', component: ProgramsPage },
+  { path: '/programs', name: 'Programs', component: ProgramsView },
   { path: '/admin', component: AdminPanel },
   { path: '/workout-title', component: WorkoutTitle },
+  { path: '/myprograms', component: MyProgramsView },
+  { path: '/sharedprograms', component: SharedPrograms },
+  { path: '/programs/create', component: ProgramCreate },
+
 
 //   { path: "/booking/:doctorId", name: "Booking", component: Booking },
 ];
